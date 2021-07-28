@@ -1,10 +1,14 @@
 import React from 'react'
 
+import Pokedex from '../Pokedex/Pokedex'
 import './App.css'
 
 const App = ()=> {
   return (
-    <h1>Pokedox</h1>
+    <div className="App">
+      <h1>Pokedex</h1>
+      <Pokedex />
+    </div>
   )
 }
 
