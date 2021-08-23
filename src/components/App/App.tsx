@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { pokemonData } from '../../data/pokemonData'
 import Pokedex from '../Pokedex/Pokedex'
@@ -10,35 +10,44 @@ import {
 import './App.css'
 
 const App = () => {
-  const [pokeData, setPokeData] = useState(pokemonData);
+  //const [pokeData, setPokeData] = useState(pokemonData);
   const [searchField, setSearchField] = useState<string>("");
-  const [searchedPokemons, setSearchedPokemons] = useState([])
-  const [selectedPokemon, setSelectedPokemon] = useState("");
-  console.log(pokeData)
+  const [allPokemons, setAllPokemons] = useState<PokemonSchema[]>([])
+  const [searchedPokemons, setSearchedPokemons] = useState<PokemonSchema[]>([])
+  const [selectedPokemon, setSelectedPokemon] = useState<PokemonSchema>();
+  //console.log(pokeData)
 
   const patchPokemonData = (pokemons: UnpatchedPokemonSchema[]) => {
     const patchedPokemons = pokemons.map((pokemon) => {
-        let parsedSprites: PokemonSpritesSchema = {
-            normal: undefined,
-            animated: undefined,
-        };
+      let parsedSprites: PokemonSpritesSchema = {
+        normal: undefined,
+        animated: undefined,
+      };
 
-        try {
-            parsedSprites = pokemon.sprites && JSON.parse(pokemon.sprites);
-        } catch (e) {
-            console.log("Exception while parsing sprites: ", e);
-        }
+      try {
+        parsedSprites = pokemon.sprites && JSON.parse(pokemon.sprites);
+      } catch (e) {
+        console.log("Exception while parsing sprites: ", e);
+      }
 
-        const patchedPokemon: PokemonSchema = {
-            ...pokemon,
-            sprites: parsedSprites,
-        };
+      const patchedPokemon: PokemonSchema = {
+        ...pokemon,
+        sprites: parsedSprites,
+      };
 
-        return patchedPokemon;
+      return patchedPokemon;
     });
 
     return patchedPokemons;
-};
+  };
+
+  useEffect(()=> {
+    // patch the stringified pokemons
+    const patchedPokemons: PokemonSchema[] = patchPokemonData(pokemonData);
+    console.log(patchedPokemons)
+    setAllPokemons(patchedPokemons);
+    setSearchedPokemons(patchedPokemons)
+  }, [])
 
   return (
     <div className="App">
