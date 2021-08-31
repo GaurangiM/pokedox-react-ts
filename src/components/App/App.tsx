@@ -49,10 +49,15 @@ const App = () => {
     setSearchedPokemons(patchedPokemons)
   }, [])
 
+  const handleInputChange = (inputValue: string) => {
+    console.log(inputValue)
+  }
+
   return (
     <div className="App">
       <h1>Pokedex</h1>
-      <Pokedex searchedPokemons= {searchedPokemons}/>
+      <Pokedex searchedPokemons= {searchedPokemons}
+                onInputChange={handleInputChange}/>
     </div>
   )
 }
