@@ -50,7 +50,13 @@ const App = () => {
   }, [])
 
   const handleInputChange = (inputValue: string) => {
-    console.log(inputValue)
+    const matchedPokemons: PokemonSchema[] = allPokemons.filter((pokemon: PokemonSchema)=> {
+      return (pokemon.name && 
+        pokemon.name.toLowerCase().includes(inputValue.toLowerCase())
+      )
+    })
+    setSearchedPokemons(matchedPokemons)
+    setSearchField(inputValue)
   }
 
   return (
