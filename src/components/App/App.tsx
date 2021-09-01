@@ -10,12 +10,10 @@ import {
 import './App.css'
 
 const App = () => {
-  //const [pokeData, setPokeData] = useState(pokemonData);
   const [searchField, setSearchField] = useState<string>("");
   const [allPokemons, setAllPokemons] = useState<PokemonSchema[]>([])
   const [searchedPokemons, setSearchedPokemons] = useState<PokemonSchema[]>([])
   const [selectedPokemon, setSelectedPokemon] = useState<PokemonSchema>();
-  //console.log(pokeData)
 
   const patchPokemonData = (pokemons: UnpatchedPokemonSchema[]) => {
     const patchedPokemons = pokemons.map((pokemon) => {
@@ -41,17 +39,16 @@ const App = () => {
     return patchedPokemons;
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     // patch the stringified pokemons
     const patchedPokemons: PokemonSchema[] = patchPokemonData(pokemonData);
-    console.log(patchedPokemons)
     setAllPokemons(patchedPokemons);
     setSearchedPokemons(patchedPokemons)
   }, [])
 
   const handleInputChange = (inputValue: string) => {
-    const matchedPokemons: PokemonSchema[] = allPokemons.filter((pokemon: PokemonSchema)=> {
-      return (pokemon.name && 
+    const matchedPokemons: PokemonSchema[] = allPokemons.filter((pokemon: PokemonSchema) => {
+      return (pokemon.name &&
         pokemon.name.toLowerCase().includes(inputValue.toLowerCase())
       )
     })
@@ -59,11 +56,20 @@ const App = () => {
     setSearchField(inputValue)
   }
 
+  const handleClickEvent = (pokemonName: string) => {
+    const matchedPokemon = allPokemons.find(
+      (pokemon: PokemonSchema) => pokemon.name === pokemonName
+    )
+    setSelectedPokemon(matchedPokemon)
+  }
+
   return (
     <div className="App">
       <h1>Pokedex</h1>
-      <Pokedex searchedPokemons= {searchedPokemons}
-                onInputChange={handleInputChange}/>
+      <Pokedex searchedPokemons={searchedPokemons}
+        selectedPokemon={selectedPokemon}
+        onInputChange={handleInputChange}
+        onPokemonClick={handleClickEvent} />
     </div>
   )
 }
