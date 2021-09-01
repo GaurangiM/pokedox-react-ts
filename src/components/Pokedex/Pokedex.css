@@ -2,7 +2,7 @@
   background-color: #FF75A0;
   margin-left: 10%;
   width: 80%;
-  min-height: 650px;
+  min-height: 600px;
   border-radius: 12px;
   display: flex;
   flex-wrap: wrap;
@@ -12,7 +12,7 @@
   width: 300px;
   flex-grow: 3;
   background-color: #EAFFD0;
-  height: 630px;
+  height: 580px;
   margin: 10px;
   border-radius: 10px 1px 1px 10px;
   overflow-y: scroll;
@@ -25,7 +25,7 @@
   flex-grow: 1;
   margin: 10px;
   background-color: #EAFFD0;
-  height: 630px;
+  height: 580px;
   margin: 10px;
   border-radius: 1px 10px 10px 1px;
 }
