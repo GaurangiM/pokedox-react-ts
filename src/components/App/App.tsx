@@ -10,7 +10,6 @@ import {
 import './App.css'
 
 const App = () => {
-  const [searchField, setSearchField] = useState<string>("");
   const [allPokemons, setAllPokemons] = useState<PokemonSchema[]>([])
   const [searchedPokemons, setSearchedPokemons] = useState<PokemonSchema[]>([])
   const [selectedPokemon, setSelectedPokemon] = useState<PokemonSchema>();
@@ -53,7 +52,6 @@ const App = () => {
       )
     })
     setSearchedPokemons(matchedPokemons)
-    setSearchField(inputValue)
   }
 
   const handleClickEvent = (pokemonName: string) => {
